@@ -26,10 +26,10 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.viewHolder> 
     private Context context;
     private RecyclerBottomListener listener;
 
-    public ReposAdapter(Context context,RecyclerBottomListener listener) {
+    public ReposAdapter(Context context, RecyclerBottomListener listener) {
         repositories = new ArrayList<>();
         this.context = context;
-        this.listener=listener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -42,8 +42,7 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.viewHolder> 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         holder.bind(repositories.get(position));
-        if(position==repositories.size()-1)
-        {
+        if (position == repositories.size() - 1) {
             listener.OnBottomReached();
         }
     }

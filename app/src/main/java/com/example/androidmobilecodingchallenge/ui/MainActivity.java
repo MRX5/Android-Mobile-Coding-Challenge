@@ -1,8 +1,6 @@
-package com.example.androidmobilecodingchallenge.Ui;
+package com.example.androidmobilecodingchallenge.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,20 +16,20 @@ import com.example.androidmobilecodingchallenge.adapter.ReposAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements ReposAdapter.RecyclerBottomListener{
+public class MainActivity extends AppCompatActivity implements ReposAdapter.RecyclerBottomListener {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private ReposAdapter adapter;
     private MainViewModel viewModel;
-    private int currPage=1;
-    private final int PER_PAGE=30;
+    private int currPage = 1;
+    private final int PER_PAGE = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Trending Repos");
-        progressBar=findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
 
         setupRecyclerView();
         setupViewModel();
@@ -39,32 +37,32 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
     }
 
     private void setupRecyclerView() {
-        recyclerView=findViewById(R.id.repo_recycler_view);
+        recyclerView = findViewById(R.id.repo_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
-        adapter=new ReposAdapter(this,this);
+        adapter = new ReposAdapter(this, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void setupViewModel() {
-        viewModel= ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     }
 
-    private Map<String,String>preparQuery() {
-        Map<String,String> query=new HashMap<>();
-        query.put("q","created:>2017-10-22");
-        query.put("sort","stars");
-        query.put("order","desk");
-        query.put("page",String.valueOf(currPage));
-        query.put("per_page",String.valueOf(PER_PAGE));
+    private Map<String, String> preparQuery() {
+        Map<String, String> query = new HashMap<>();
+        query.put("q", "created:>2017-10-22");
+        query.put("sort", "stars");
+        query.put("order", "desk");
+        query.put("page", String.valueOf(currPage));
+        query.put("per_page", String.valueOf(PER_PAGE));
 
         return query;
     }
 
     private void getRepositoriesList() {
-        Map<String,String> query=preparQuery();
-        viewModel.getRepositoryList(query).observe(this,repos->{
-            if(progressBar.getVisibility()== View.VISIBLE){
+        Map<String, String> query = preparQuery();
+        viewModel.getRepositoriesList(query).observe(this, repos -> {
+            if (progressBar.getVisibility() == View.VISIBLE) {
                 progressBar.setVisibility(View.GONE);
             }
             adapter.setRepositories(repos);
