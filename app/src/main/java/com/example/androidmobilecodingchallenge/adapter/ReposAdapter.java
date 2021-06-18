@@ -79,7 +79,16 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.viewHolder> 
             repoName.setText(repo.getName());
             repoDescription.setText(repo.getDescription());
             String star_count = String.valueOf(repo.getStargazers_count());
-            stars.setText(star_count + "k");
+            if(repo.getStargazers_count()>=1000){
+                float stars=repo.getStargazers_count()/1000;
+                star_count=String.valueOf(stars)+'k';
+            }
+            else
+            {
+                int stars=(int)repo.getStargazers_count();
+                star_count=String.valueOf(stars);
+            }
+            stars.setText(star_count);
             repoOwner.setText(repo.getOwner().getOwnerName());
             Glide.with(context).load(repo.getOwner().getOwnerImageUrl()).into(userImage);
         }

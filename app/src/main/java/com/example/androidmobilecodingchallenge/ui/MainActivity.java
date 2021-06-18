@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
     private ReposAdapter adapter;
     private MainViewModel viewModel;
     private int currPage = 1;
-    private final int PER_PAGE = 30;
+    private final int PER_PAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
