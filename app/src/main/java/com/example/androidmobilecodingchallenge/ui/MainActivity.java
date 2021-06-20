@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
         setupRecyclerView();
         setupViewModel();
 
-        viewModel.getRepos().observe(this, repos-> {
-
-            if(progressBar.getVisibility()==View.VISIBLE){
+        viewModel.getRepos().observe(this, repos -> {
+            if (progressBar.getVisibility() == View.VISIBLE) {
                 progressBar.setVisibility(View.GONE);
             }
             adapter.setRepositories(repos);
@@ -56,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
     }
 
     private void setupViewModel() {
-        MainViewModelFactory factory=new MainViewModelFactory(preparQuery());
-        viewModel = ViewModelProviders.of(this,factory).get(MainViewModel.class);
+        MainViewModelFactory factory = new MainViewModelFactory(preparQuery());
+        viewModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
     }
 
     private Map<String, String> preparQuery() {
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
         query.put("order", "desk");
         query.put("page", String.valueOf(currPage));
         query.put("per_page", String.valueOf(PER_PAGE));
-
         return query;
     }
 
