@@ -1,5 +1,7 @@
 package com.example.androidmobilecodingchallenge;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -17,13 +19,12 @@ import retrofit2.Response;
 public class Repository {
 
     private static Repository mInstance = new Repository();
-
     public static Repository getInstance() {
         return mInstance;
     }
+    public MutableLiveData<List<Repo>>repos=new MutableLiveData<>();
 
-    public LiveData<List<Repo>> getRepos(Map<String, String> query) {
-        MutableLiveData<List<Repo>> repos = new MutableLiveData<>();
+    public void getRepositoriesList(Map<String, String> query) {
         Call<RepoResponse> call = ApiClient.getInstance().getRepositories(query);
         call.enqueue(new Callback<RepoResponse>() {
             @Override
@@ -38,6 +39,5 @@ public class Repository {
 
             }
         });
-        return repos;
     }
 }

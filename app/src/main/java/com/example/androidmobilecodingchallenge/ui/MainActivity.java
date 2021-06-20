@@ -33,7 +33,14 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
 
         setupRecyclerView();
         setupViewModel();
-        getRepositoriesList();
+
+        viewModel.getRepos().observe(this,repos->{
+            if(progressBar.getVisibility()==View.VISIBLE){
+                progressBar.setVisibility(View.GONE);
+            }
+            adapter.setRepositories(repos);
+        });
+
     }
 
     private void setupRecyclerView() {
@@ -45,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
     }
 
     private void setupViewModel() {
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        MainViewModelFactory factory=new MainViewModelFactory(preparQuery());
+        viewModel = ViewModelProviders.of(this,factory).get(MainViewModel.class);
     }
 
     private Map<String, String> preparQuery() {
@@ -61,12 +69,7 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
 
     private void getRepositoriesList() {
         Map<String, String> query = preparQuery();
-        viewModel.getRepositoriesList(query).observe(this, repos -> {
-            if (progressBar.getVisibility() == View.VISIBLE) {
-                progressBar.setVisibility(View.GONE);
-            }
-            adapter.setRepositories(repos);
-        });
+        viewModel.getRepositoriesList(query);
     }
 
     @Override
