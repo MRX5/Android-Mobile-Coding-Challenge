@@ -1,6 +1,7 @@
 package com.example.androidmobilecodingchallenge.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +19,6 @@ import com.example.androidmobilecodingchallenge.model.Repo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.viewHolder> {
 
@@ -56,7 +56,9 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.viewHolder> 
     public void setRepositories(List<Repo> repositories) {
 
         this.repositories.addAll(repositories);
-        notifyDataSetChanged();
+        Handler handler= new Handler(Looper.getMainLooper());
+        Runnable runnable = () -> notifyDataSetChanged();
+        handler.post(runnable);
     }
 
     class viewHolder extends RecyclerView.ViewHolder {

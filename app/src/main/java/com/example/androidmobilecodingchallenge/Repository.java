@@ -16,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Repository {
+public class Repository{
 
     private static Repository mInstance = new Repository();
     public static Repository getInstance() {
@@ -24,7 +24,7 @@ public class Repository {
     }
     public MutableLiveData<List<Repo>>repos=new MutableLiveData<>();
 
-    public void getRepositoriesList(Map<String, String> query) {
+    public MutableLiveData<List<Repo>> getRepositoriesList(Map<String, String> query) {
         Call<RepoResponse> call = ApiClient.getInstance().getRepositories(query);
         call.enqueue(new Callback<RepoResponse>() {
             @Override
@@ -39,5 +39,6 @@ public class Repository {
 
             }
         });
+        return repos;
     }
 }

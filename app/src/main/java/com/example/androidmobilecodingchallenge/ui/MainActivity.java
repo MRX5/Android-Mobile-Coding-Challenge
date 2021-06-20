@@ -1,6 +1,7 @@
 package com.example.androidmobilecodingchallenge.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,8 +13,10 @@ import android.widget.ProgressBar;
 
 import com.example.androidmobilecodingchallenge.R;
 import com.example.androidmobilecodingchallenge.adapter.ReposAdapter;
+import com.example.androidmobilecodingchallenge.model.Repo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements ReposAdapter.RecyclerBottomListener {
@@ -34,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements ReposAdapter.Recy
         setupRecyclerView();
         setupViewModel();
 
-        viewModel.getRepos().observe(this,repos->{
+        viewModel.getRepos().observe(this, repos-> {
+
             if(progressBar.getVisibility()==View.VISIBLE){
                 progressBar.setVisibility(View.GONE);
             }

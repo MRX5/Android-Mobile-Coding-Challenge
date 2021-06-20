@@ -21,17 +21,19 @@ import retrofit2.Response;
 public class MainViewModel extends ViewModel {
 
     private Repository repository;
+    private MutableLiveData<List<Repo>>repos;
 
     public MainViewModel(Map<String,String>query){
         repository = Repository.getInstance();
+        repos=repository.repos;
         getRepositoriesList(query);
     }
 
     public void getRepositoriesList(Map<String, String> query) {
-       repository.getRepositoriesList(query);
+        repos=repository.getRepositoriesList(query);
     }
 
     public LiveData<List<Repo>> getRepos() {
-        return repository.repos;
+        return repos;
     }
 }
