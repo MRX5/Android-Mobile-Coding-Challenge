@@ -25,7 +25,6 @@ public class MainViewModel extends ViewModel {
 
     public MainViewModel(Map<String,String>query){
         repository = Repository.getInstance();
-        repos=repository.repos;
         getRepositoriesList(query);
     }
 

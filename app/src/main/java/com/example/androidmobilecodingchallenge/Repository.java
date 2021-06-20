@@ -16,13 +16,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Repository{
+public class Repository {
 
     private static Repository mInstance = new Repository();
+
     public static Repository getInstance() {
         return mInstance;
     }
-    public MutableLiveData<List<Repo>>repos=new MutableLiveData<>();
+
+    private MutableLiveData<List<Repo>> repos = new MutableLiveData<>();
 
     public MutableLiveData<List<Repo>> getRepositoriesList(Map<String, String> query) {
         Call<RepoResponse> call = ApiClient.getInstance().getRepositories(query);
